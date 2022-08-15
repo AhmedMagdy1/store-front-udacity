@@ -27,19 +27,23 @@ These are the notes from a meeting with the frontend developer that describe wha
 - Delete '/orders/:id' [DELETE] required token
 
 ## Data Shapes
-#### Product
--  id
-- name
-- price
+#### products
+-  id : integer
+- name : varchar
+- price: doucble
 
-#### User
-- id
-- name
-- email
-- password
+#### users
+- id : integer
+- name: varchar
+- email: varchar
+- password: varchar
 
-#### Orders
-- id
-- user_id
-- status (true or false )
+#### orders
+- id : integer
+- user_id : integer
+- status (true or false ) : boolean
 
+#### order_products
+- order_id : integer
+- product_id : integer
+- quantity : integer
