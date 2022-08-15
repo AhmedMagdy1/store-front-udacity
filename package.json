@@ -7,7 +7,8 @@
     "start": "node dist/server.js",
     "build": "tsc --esModuleInterop src/server.ts --outDir ./dist",
     "watch": "tsc-watch --esModuleInterop src/server.ts --outDir ./dist --onSuccess \"node ./dist/server.js\"",
-    "test": "tsc && ENV=test db-migrate --env test up && jasmine-ts && db-migrate db:drop test",
+    "test": " db-migrate --env test reset && set ENV=test && db-migrate --env test up && npx tsc && jasmine ",
+
     "tsc": "tsc"
   },
   "author": "",
@@ -19,6 +20,7 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "pg": "^8.5.1",
+    "supertest": "^6.2.4",
     "typescript": "^4.1.3"
   },
   "devDependencies": {
@@ -27,10 +29,12 @@
     "@types/jasmine": "^3.6.3",
     "@types/jsonwebtoken": "^8.5.8",
     "@types/pg": "^7.14.7",
+    "@types/supertest": "^2.0.12",
     "dotenv": "^16.0.1",
     "jasmine": "^3.6.4",
     "jasmine-spec-reporter": "^6.0.0",
     "jasmine-ts": "^0.3.0",
+    "superset": "^2.0.1",
     "ts-node": "^9.1.1",
     "tsc-watch": "^4.2.9"
   }
