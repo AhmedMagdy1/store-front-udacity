@@ -40,7 +40,7 @@ to run test use commant:
     POSTGRES_DB_TEST=
     POSTGRES_USER=
     POSTGRES_PASSWORD=
-    BCRYPT_PASSWORD=store-front-udacity
+    BCRYPT_PASSWORD=
     SALT_ROUNDS=
     TOKEN_SECRET=
     ENV='dev'
