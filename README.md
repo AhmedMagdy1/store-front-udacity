@@ -32,4 +32,16 @@ to run test use commant:
 
      db-migrate up
 
-###### you will find file which called .env-example you can duplicate it to crate .env and use your own configuration
+###### you will find file which called .env-example you can duplicate it to crate .env and use your own configuration or you can copy the below with your own configuration
+
+POSTGRES_HOST=
+PORT=
+POSTGRES_DB=
+POSTGRES_DB_TEST=
+POSTGRES_USER=
+POSTGRES_PASSWORD=
+BCRYPT_PASSWORD=store-front-udacity
+SALT_ROUNDS=
+TOKEN_SECRET=
+ENV='dev'
+DATABASE_PORT=
