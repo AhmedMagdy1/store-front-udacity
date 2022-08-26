@@ -55,7 +55,6 @@ export class OrderMethods{
             const connection = await Client.connect();
             const query = "select * from orders where id=$1";
             const {rows} = await connection.query(query, [id]);
-            console.log(rows);
             if(rows.length > 0){
                 const order: Order = rows[0];
                 const query = "select product_id, quantity from order_products where order_id=$1";

@@ -1,32 +1,45 @@
+import { response } from 'express';
 import supertest from 'supertest'
+import { BaseUser, User, UserMethods } from '../../models/user';
 import app from "../../server";
 
 const request = supertest(app);
+const userObject = new UserMethods;
+let userResult: User;
+let token: string;
+const userBaseObject: BaseUser = {'email': 'ahmedmag576@gmail.com', 'password': '123456', 'name' : 'ahmed magdy'};
+describe("Test User Endpoints", () => {
 
-describe("Test Order Endpoints", () => {
+    beforeAll( async() => {
+        userResult = await (await userObject.create(userBaseObject));
+        await request.post('/users/auth')
+        .send({'email': userBaseObject.email, 'password': userBaseObject.password})
+        .then((result) => {
+            token = result.body
+        })
+    })
 
-    it('get orders unauthorized no token send', async () => {
-        await request
-            .get('/orders')
-            .expect(401);
+    it('user is logged in', async () => {
+        await request.post('/users/auth')
+        .send({'email': userBaseObject.email, 'password': userBaseObject.password})
+        .expect(200)
     });
 
-    it('create order unauthorized no token send', async () => {
+    it('return all users', async () => {
         await request
-            .post('/orders/create')
-            .expect(401);
+            .get('/users')
+            .set('Authorization', 'Bearer ' + token)
+            .expect(200)
+            .then( (response) => {
+                expect(response.body.length).toBeGreaterThan(0)
+            });
     });
 
-    it('get order unauthorized no token send', async () => {
+    it('show specific user', async () => {
         await request
-            .get('/orders/1')
-            .expect(401);
-    });
-
-    it('delete order unauthorized no token send', async () => {
-        await request
-            .delete('/orders/1')
-            .expect(401);
+            .get('/users/1')
+            .set('Authorization', 'Bearer ' + token)
+            .expect(200)
     });
 
   

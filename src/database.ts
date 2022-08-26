@@ -13,6 +13,8 @@ const {
     DATABASE_PORT
 } = process.env;
 
+console.log(ENV);
+
 const Client = new Pool({
     host: POSTGRES_HOST,
     database: (ENV == 'dev') ? POSTGRES_DB : POSTGRES_DB_TEST,

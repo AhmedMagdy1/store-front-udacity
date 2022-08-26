@@ -22,13 +22,13 @@ export class ProductMethods{
         }
     }
 
-    async store(product:BaseProduct): Promise<Boolean> {
+    async store(product:BaseProduct): Promise<Product> {
         try{
             const connection = await Client.connect();
-            const query = 'insert into products (name, price) values ($1, $2)';
+            const query = 'insert into products (name, price) values ($1, $2) RETURNING *';
             const result = await connection.query(query, [product.name, product.price]);
             connection.release();
-            return true;
+            return result.rows[0];
         }catch(error){
             throw new Error(`can't create product, Error: ${error}`)
         }
@@ -51,7 +51,7 @@ export class ProductMethods{
     async update(product: Product): Promise<Product> {
         try{
             const connection = await Client.connect();
-            const query = 'update products set name=$1, price=$2 where id= $3';
+            const query = 'update products set name=$1, price=$2 where id= $3 returning *';
             const result = await connection.query(query, [product.name, product.price, product.id]);
             connection.release();
             return result.rows[0];
@@ -63,7 +63,7 @@ export class ProductMethods{
     async delete (id:number): Promise<Boolean> {
         try{
             const connect = await Client.connect();
-            const query = 'delete from products where id=($1)';
+            const query = 'delete from products where id=($1) returning *';
             const result = await connect.query(query, [id]);
             connect.release();
             return (result.rowCount) ? true : false;
